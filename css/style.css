@@ -1,24 +1,98 @@
 #topBar {
-    height: 10vh;
     top: 0;
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#mapContainer {
+    height: 70vh;
 }
 
-#mapContainer {
-    position: absolute;
-    left: 0;
-    margin-top: 40px;
-    height: 70vh;
-    width: 100%;
+#mapAndResultsContainer {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #resultsContainer {
+    display: flex;
+    flex-basis: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: stretch;
+    overflow: hidden;
+}
+ul {
     padding: 0;
+}
+ul li {
+    transition: background-color 0.3s ease-out;
+    list-style-type: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+ul li:hover {
+    background-color: lightgrey;
+}
+ul li:odd {
+    background-color: #f2f2f2;    
+}
+.hotelIcon {
+    width: 30px;
+    color: green;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+#resultsFields {
+    padding: 0;
+    height: 70vh;
+    max-height: 70vh;
+}
+
+#pageTitle {
+    text-align: right;
+}
+.panel-group {
+    width: 100%;
+}
+.panelHeader {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    width: 100%;
+    
+}
+.panel-body {
+    height: 100%;
+    padding: 0;
+    max-height: 42vh;
+    overflow-y: scroll;
+}
+.panel-body.collapse.in {
+    flex-grow: 1;
 }
 #map {
     height: 100%;
     height: 100%;
+    border: solid 2px #464646;
+    border-radius: 10px;
 }
 html, body {
     height: 100vh;
     margin: 0;
     padding: 0;
+}
+#countriesList, #searchForLocation, #pageTitle {
+    width: 30%;
+    margin: 0;
+}
+.lightPanel {
+    color: black;
 }

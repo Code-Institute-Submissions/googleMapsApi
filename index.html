@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script <script type="text/javascript" src="scripts/script.js"></script>
@@ -13,40 +14,82 @@
 </head>
 <body>
     <header id="topBar">
-        <div>Find your next holiday</div>
-        <nav>
-            <input class="controls form-control" type="text" id="searchForLocation" placeholder="Enter your city"/>
-            <div id="countriesList" class="form-group">
-                <select class="form-control" id="country">
-                    <option value="all">All</option>
-                    <option value="au">Australia</option>
-                    <option value="br">Brazil</option>
-                    <option value="ca">Canada</option>
-                    <option value="fr">France</option>
-                    <option value="de">Germany</option>
-                    <option value="mx">Mexico</option>
-                    <option value="nz">New Zealand</option>
-                    <option value="it">Italy</option>
-                    <option value="za">South Africa</option>
-                    <option value="es">Spain</option>
-                    <option value="pt">Portugal</option>
-                    <option value="us">U.S.A.</option>
-                    <option value="uk" selected>United Kingdom</option>
-                </select>
-            </div>
-        </nav>
+        <input class="controls form-control" type="text" id="searchForLocation" placeholder="Enter your city"/>
+        <div id="countriesList" class="form-group">
+            <select class="form-control" id="country">
+                <option value="all">All</option>
+                <option value="au">Australia</option>
+                <option value="br">Brazil</option>
+                <option value="ca">Canada</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+                <option value="mx">Mexico</option>
+                <option value="nz">New Zealand</option>
+                <option value="it">Italy</option>
+                <option value="za">South Africa</option>
+                <option value="es">Spain</option>
+                <option value="pt">Portugal</option>
+                <option value="us">U.S.A.</option>
+                <option value="uk" selected>United Kingdom</option>
+            </select>
+        </div>
+        <div id="pageTitle">Find your next holiday</div>
     </header>
     <main>
-        <div class="container" id="resultsContainer">
-            <div class="row">
-                <div class="col-xs-12 col-sm-7">
+        <div class="container-fluid" id="mapAndResultsContainer">
+            <div class="row mapAndResults">
+                <div id="mapContainer" class="col-xs-12 col-sm-7">
                     <span class="metadata-marker" style="display: none;" data-region_tag="html-body"></span>    
-                    <div id="mapContainer">
                         <div id="map"></div>    
-                    </div>
                     <span class="metadata-marker" style="display: none;" data-region_tag="script-body"></span>      
                 </div>
-                <div class="col-xs-12 col-sm-5">
+                <div class="col-xs-12 col-sm-5" id="resultsContainer">
+                    <div class="panel-group" id="resultsFields">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <a class="panelHeader hotelHeader" href="#hotelResults" data-target="#hotelResults" data-toggle="collapse" data-parent="#resultsFields"/>
+                                    HOTELS
+                                </a>
+                            </div>
+                            <div id="hotelResults" class="panel-body panel-collapse collapse in">
+                                <ul id="hotelResultsList">
+                                </ul>            
+                            </div>
+                        </div>
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <a class="lightPanel panelHeader" href="#barResults" data-target="#barResults" data-toggle="collapse" data-parent="#resultsFields"/>
+                                    BARS
+                                </a>
+                            </div>
+                            <div id="barResults" class="panel-body panel-collapse collapse">
+                                <ul id="barResultsList">
+                                </ul>            
+                            </div>
+                        </div>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <a class="panelHeader lightPanel" href="#restaurantResults" data-target="#restaurantResults" data-toggle="collapse" data-parent="#resultsFields"/>
+                                    Restaurants
+                                </a>
+                            </div>
+                            <div id="restaurantResults" class="panel-body panel-collapse collapse">
+                                <ul id="restaurantResultsList">
+                                </ul>            
+                            </div>
+                        </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <a class="panelHeader lightPanel" href="#attractionsResults" data-target="#attractionsResults" data-toggle="collapse" data-parent="#resultsFields"/>
+                                    Attractions
+                                </a>
+                            </div>
+                            <div id="attractionsResults" class="panel-body panel-collapse collapse">
+                                <ul id="attractionsResultsList">
+                                </ul>            
+                            </div>
+                        </div>
+                    </div>
                     
                 </div>
             </div>

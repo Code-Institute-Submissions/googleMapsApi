@@ -53,6 +53,9 @@ var countries = {
     }
 };
 var map;
+var places;
+var markers = [];
+var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
  
 function initMap() {
     
@@ -66,6 +69,7 @@ function initMap() {
         zoomControl: false,
         streetViewControl: false
     });
+    places = new google.maps.places.PlacesService(map);
 
     var input = document.getElementById('searchForLocation');
     var options = {
@@ -78,10 +82,11 @@ function initMap() {
     
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
+        $("#hotelResults").collapse("show");
         if (place.geometry) {
             map.panTo(place.geometry.location);
             map.setZoom(15);
-            
+            search();
         }
     });
     
@@ -98,6 +103,67 @@ function initMap() {
         }
         input.value = '';
     }
+    
+    $("#barResults").on("show.bs.collapse", function() {
+        search("bar", "barResultsList");
+    });
+    $("#restaurantResults").on("show.bs.collapse", function() {
+        search("restaurant", "restaurantResultsList");
+    });
+    $("#attractionsResults").on("show.bs.collapse", function() {
+        search("museum", "attractionsResultsList");
+    });
+    $(".hotelHeader").on("show.bs.collapse", function() {
+        $(this).siblings().find(".panel-body").collapse("hide");
+    }); 
+    
+    function search(searchType="lodging", dropLocation="hotelResultsList") {
+        var search = {
+            bounds: map.getBounds(),
+            types: [searchType]
+        };
+
+        places.nearbySearch(search, function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                document.getElementById(dropLocation).innerHTML = '';
+                for (var i = 0; i < results.length; i++) {
+                    var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+                    var markerIcon = MARKER_PATH + markerLetter + '.png';
+                    // Use marker animation to drop the icons incrementally on the map.
+                    markers[i] = new google.maps.Marker({
+                        position: results[i].geometry.location,
+                        animation: google.maps.Animation.DROP,
+                        icon: markerIcon
+                    });
+                    markers[i].placeResult = results[i];
+                    setTimeout(markers[i].setMap(map), i * 100);
+                    addResult(results[i], i, dropLocation);
+                }
+            }
+        });
+    }
+    
+    function addResult(result, i, dropLocation) {
+        var results = document.getElementById(dropLocation);
+        var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+        var markerIcon = MARKER_PATH + markerLetter + '.png';
+        var listItem = document.createElement('li');
+        var icon = document.createElement('img');
+        icon.src = "/assets/image/hotel-solid.svg";
+        icon.setAttribute('class', 'hotelIcon');
+        icon.setAttribute('className', 'hotelIcon');
+        listItem.appendChild(icon);
+        var name = document.createTextNode(markerLetter + " - " + result.name);
+        listItem.setAttribute("class", "hotelResult");
+        listItem.appendChild(name);
+        results.appendChild(listItem);
+        
+        
+      }
+
+   
+    
+    
 }
 
 
